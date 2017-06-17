@@ -366,14 +366,6 @@ function getPickedColors(gl, {
     // Clear the frame buffer
     gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
-    // Save current blend settings
-    // const oldBlendMode = getBlendMode(gl);
-    // Set blend mode for picking
-    // always overwrite existing pixel with [r,g,b,layerIndex]
-    // gl.enable(gl.BLEND);
-    // gl.blendFuncSeparate(gl.ONE, gl.ZERO, gl.CONSTANT_ALPHA, gl.ZERO);
-    // gl.blendEquation(gl.FUNC_ADD);
-
     // Render all pickable layers in picking colors
     layers.forEach((layer, layerIndex) => {
       if (!layer.isComposite && layer.props.visible && layer.props.pickable) {
@@ -395,9 +387,6 @@ function getPickedColors(gl, {
     // Read color in the central pixel, to be mapped with picking colors
     const pickedColors = new Uint8Array(width * height * 4);
     gl.readPixels(x, y, width, height, GL.RGBA, GL.UNSIGNED_BYTE, pickedColors);
-
-    // restore blend mode
-    // setBlendMode(gl, oldBlendMode);
 
     return pickedColors;
   });
